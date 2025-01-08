@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+
+    <title>Game | Pissing Dog Farts</title>
+    <style>
+        @font-face {
+            font-family: 'Bitroad';
+            src: url('Bitroad-Regular.ttf') format('truetype');
+        }
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: url('bg.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Bitroad', sans-serif;
+        }
+        canvas {
+            display: block;
+        }
+        #startBtn, #leaderboardBtn {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 20px 40px;
+            font-size: 18px;
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            font-family: 'Bitroad', sans-serif;
+            width: 200px;
+            border-radius: 10px;
+        }
+        #startBtn {
+            top: 45%;
+        }
+        #leaderboardBtn {
+            top: 55%;
+        }
+        #nicknameInput {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            padding: 10px;
+            border: 2px solid #8B4513;
+            border-radius: 5px;
+            font-family: 'Bitroad', sans-serif;
+            width: 250px;
+        }
+        #startBtn:hover, #leaderboardBtn:hover {
+            background-color: #6B3310;
+        }
+        .top-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .top-buttons span {
+            font-family: 'Bitroad';
+            font-size: 20px;
+            color: white;
+            text-shadow: 0px 0px 5px #8B4513;
+            margin-right: 10px;
+        }
+        .top-buttons a {
+            font-family: 'Bitroad';
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            background-color: #8B4513;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .top-buttons a:hover {
+            background-color: #6B3310;
+        }
+        .header-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons a {
+            font-family: 'Bitroad';
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            background-color: #8B4513;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .header-buttons a:hover {
+            background-color: #6B3310;
+        }
+        .bottom-icons {
+            position: relative;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            justify-content: center; /* Центрирует элементы по горизонтали */
+            align-items: center; /* Центрирует элементы по вертикали (если нужно) */
+        }
+        .bottom-icons a img {
+            width: 30px;
+            height: 30px;
+            transition: transform 0.3s ease;
+            object-fit: contain;
+        }
+        .bottom-icons a img:hover {
+            transform: scale(1.2);
+        }
+        .ca {
+            margin-right: 150px;
+            margin-top: 10px;
+        }
+        @media screen and (max-width: 768px) {
+.ca {
+                margin-right: -10px;
+                margin-top: 50px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%); /* Центрирование по горизонтали */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            .ca span {
+                font-size: 12px !important;
+            }
+            .top-buttons {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%); /* Центрирование по горизонтали */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                top: 70px;
+            }
+            .controls {
+                justify-content: left;
+            }
+            .controls input, .controls button {
+                width: 250px;
+            }
+            #editor {
+                margin-top: 150px;
+            }
+            .header-buttons {
+                left: 0px;
+                width: 100%;
+                justify-content: center;
+            }
+            .bottom-icons {
+                position: relative;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-buttons">
+        <a href="index.html">Generator</a>
+        <a href="game.html">Game</a>
+        <a href="leaderboard.html">Leaderboard</a>
+    </div>
+    <div class="top-buttons">
+        <a target="_blank" href="https://pump.fun/coin/y1k9ZRqLwKLbyUe5LfQf53jYXeSyvrFi7URt4FWpump">BUY $pdf</a>
+    </div>
+    <div class="top-buttons ca">
+    <span>CA: y1k9ZRqLwKLbyUe5LfQf53jYXeSyvrFi7URt4FWpump</span>
+    </div>
+    <input type="text" id="nicknameInput" maxlength="16" placeholder="Your twitter @username" />
+    <button id="startBtn">Start Game</button>
+    <button id="leaderboardBtn">Leaderboard</button>
+    <canvas id="gameCanvas"></canvas>
+        <div class="bottom-icons">
+        <a target="_blank" href="https://www.instagram.com/daily.pissin.fartin.dog/reels/"><img src="inst.png" alt="Instagram"></a>
+        <a target="_blank" href="https://t.me/pissingdogfarts"><img src="telegram.png" alt="Telegram"></a>
+        <a target="_blank" href="https://x.com/pissingdogfarts"><img src="twitter.png" alt="Twitter"></a>
+        <a target="_blank" href="https://linktr.ee/pissingdogfarts"><img src="linktree.png" alt="Linktree"></a>
+        <a target="_blank" href="https://dexscreener.com/solana/gl7qhf5zu5tg88cach7r2nmfpnjxmung4wqgckltdi3m"><img src="dex.png" alt="DEX"></a>
+    </div>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const startBtn = document.getElementById("startBtn");
+        const leaderboardBtn = document.getElementById("leaderboardBtn");
+        const nicknameInput = document.getElementById("nicknameInput");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const dogImage = new Image();
+        dogImage.src = "dog.png";
+
+        const toiletImage = new Image();
+        toiletImage.src = "toilet.png";
+
+        const poopImage = new Image();
+        poopImage.src = "shit.png";
+
+        const bgImage = new Image();
+        bgImage.src = "bg.jpeg";
+
+        let scaleFactor = window.innerWidth <= 768 ? 0.5 : 1;
+        let dog = { x: 100, y: canvas.height - canvas.height * 0.4 - 50 * scaleFactor, width: 150 * scaleFactor, height: 110 * scaleFactor, isJumping: false, velocity: 0 };
+        let gravity = 0.8;
+        let jumpStrength = 24;
+        let obstacles = [];
+        let poop = [];
+        let roadSpeed = 6;
+        let score = 0;
+        let gameRunning = false;
+        let nickname = "";
+        let frame = 0;
+
+        function startGame() {
+            nickname = nicknameInput.value.trim();
+            if (!nickname || nickname.length > 16 || /[<>]/.test(nickname)) {
+                alert("Please enter a valid nickname (max 16 characters, no special symbols).");
+                return;
+            }
+            gameRunning = true;
+            startBtn.style.display = "none";
+            leaderboardBtn.style.display = "none";
+            nicknameInput.style.display = "none";
+            dog.y = canvas.height - canvas.height * 0.4 - 50 * scaleFactor;
+            dog.velocity = 0;
+            obstacles = [];
+            poop = [];
+            score = 0;
+            frame = 0;
+            update();
+        }
+
+        function drawBackground() {
+            ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+        }
+
+        function moveDog() {
+            if (dog.isJumping) {
+                dog.velocity -= gravity;
+                dog.y -= dog.velocity;
+                if (dog.y >= canvas.height - canvas.height * 0.4 - 50 * scaleFactor) {
+                    dog.y = canvas.height - canvas.height * 0.4 - 50 * scaleFactor;
+                    dog.isJumping = false;
+                    dog.velocity = 0;
+                }
+            }
+        }
+
+        function drawDog() {
+            ctx.drawImage(dogImage, dog.x, dog.y, dog.width, dog.height);
+        }
+
+        function drawObstacles() {
+            obstacles.forEach(obstacle => {
+                ctx.drawImage(toiletImage, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            });
+        }
+
+        function drawPoop() {
+            poop.forEach(p => {
+                ctx.drawImage(poopImage, p.x, p.y, p.width, p.height);
+            });
+        }
+
+        function spawnObstacle() {
+            obstacles.push({
+                x: canvas.width,
+                y: canvas.height - canvas.height * 0.4 - 50 * scaleFactor,
+                width: 56 * scaleFactor,
+                height: 110 * scaleFactor
+            });
+        }
+
+        function spawnPoop() {
+            const randomHeight = Math.random() * (canvas.height * 0.4 - 50 * scaleFactor);
+            poop.push({
+                x: canvas.width + 90,
+                y: canvas.height - canvas.height * 0.4 - 70 * scaleFactor - randomHeight,
+                width: 87 * scaleFactor,
+                height: 110 * scaleFactor
+            });
+        }
+
+        function checkCollision(rect1, rect2) {
+            return (
+                rect1.x < rect2.x + rect2.width &&
+                rect1.x + rect1.width > rect2.x &&
+                rect1.y < rect2.y + rect2.height &&
+                rect1.y + rect1.height > rect2.y
+            );
+        }
+
+        function update() {
+            if (!gameRunning) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            drawBackground();
+            moveDog();
+            drawDog();
+
+            if (frame % 150 === 0) spawnObstacle();
+            if (frame % 225 === 0) spawnPoop();
+
+            drawObstacles();
+            drawPoop();
+
+            obstacles.forEach((obstacle, index) => {
+                obstacle.x -= roadSpeed;
+                if (checkCollision(dog, obstacle)) {
+                    gameOver();
+                }
+                if (obstacle.x + obstacle.width < 0) obstacles.splice(index, 1);
+            });
+
+            poop.forEach((p, index) => {
+                p.x -= roadSpeed;
+                if (checkCollision(dog, { x: p.x, y: p.y, width: p.width, height: p.height })) {
+                    poop.splice(index, 1);
+                    score++;
+                }
+                if (p.x + p.width < 0) poop.splice(index, 1);
+            });
+
+            ctx.fillStyle = "white";
+            ctx.font = "24px Bitroad";
+            ctx.textAlign = "left";
+            ctx.fillText(`Score: ${score}`, 10, 100);
+            ctx.fillText(`Player: ${nickname}`, 10, 130);
+
+            frame++;
+            requestAnimationFrame(update);
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            saveToDatabase();
+            alert(`Game Over! Your score: ${score}`);
+            startBtn.style.display = "block";
+            leaderboardBtn.style.display = "block";
+            nicknameInput.style.display = "block";
+        }
+
+        function saveToDatabase() {
+            fetch('save_score.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nickname, score })
+            }).then(response => response.json())
+              .then(data => {
+                  if (!data.success) {
+                      alert('Failed to save score.');
+                  }
+              });
+        }
+
+        leaderboardBtn.addEventListener("click", () => {
+            window.location.href = 'leaderboard.html';
+        });
+
+        startBtn.addEventListener("click", startGame);
+
+        // Обработка прыжка по нажатию пробела
+        window.addEventListener("keydown", (e) => {
+            if (e.key === " " && !dog.isJumping) {
+                dog.isJumping = true;
+                dog.velocity = jumpStrength;
+            }
+        });
+
+        // Обработка прыжка по тапу экрана
+        canvas.addEventListener("touchstart", () => {
+            if (!dog.isJumping) {
+                dog.isJumping = true;
+                dog.velocity = jumpStrength;
+            }
+        });
+    </script>
+</body>
+</html>
+
+

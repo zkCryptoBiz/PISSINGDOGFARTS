@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <title>Leaderboard | Pissing Dog Farts</title>
+    <style>
+        @font-face {
+            font-family: 'Bitroad';
+            src: url('Bitroad-Regular.ttf') format('truetype');
+        }
+        body {
+            margin: 0;
+            background: url('bg.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Bitroad', sans-serif;
+        }
+        .leaderboard {
+            width: 80%;
+            margin: 90px auto 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .leaderboard h1 {
+            text-align: center;
+            color: #8B4513;
+        }
+        .leaderboard table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .leaderboard th, .leaderboard td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #8B4513;
+            color: #8B4513;
+        }
+        .leaderboard th {
+            background-color: #8B4513;
+            color: white;
+        }
+        .game-page-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            font-size: 20px;
+            text-align: center;
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            width: 200px;
+        }
+        .game-page-btn:hover {
+            background-color: #6B3310;
+        }
+         .top-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .top-buttons span {
+            font-family: 'Bitroad';
+            font-size: 20px;
+            color: white;
+            text-shadow: 0px 0px 5px #8B4513;
+            margin-right: 10px;
+        }
+        .top-buttons a {
+            font-family: 'Bitroad';
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            background-color: #8B4513;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .top-buttons a:hover {
+            background-color: #6B3310;
+        }
+        .header-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons a {
+            font-family: 'Bitroad';
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            background-color: #8B4513;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .header-buttons a:hover {
+            background-color: #6B3310;
+        }
+        .bottom-icons {
+            position: relative;
+            top: 20px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            justify-content: center; /* Центрирует элементы по горизонтали */
+            align-items: center; /* Центрирует элементы по вертикали (если нужно) */
+        }
+        .bottom-icons a img {
+            width: 30px;
+            height: 30px;
+            transition: transform 0.3s ease;
+            object-fit: contain;
+        }
+        .bottom-icons a img:hover {
+            transform: scale(1.2);
+        }
+        .ca {
+            margin-right: 150px;
+            margin-top: 10px;
+        }
+        
+        @media screen and (max-width: 768px) {
+        .ca {
+                margin-right: -10px;
+                margin-top: 50px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%); /* Центрирование по горизонтали */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            .ca span {
+                font-size: 12px !important;
+            }
+            .top-buttons {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%); /* Центрирование по горизонтали */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                top: 70px;
+            }
+            .controls {
+                justify-content: left;
+            }
+            .controls input, .controls button {
+                width: 250px;
+            }
+            #editor {
+                margin-top: 150px;
+            }
+            .header-buttons {
+                left: 0px;
+                width: 100%;
+                justify-content: center;
+            }
+            .bottom-icons {
+                position: relative;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-buttons">
+        <a href="index.html">Generator</a>
+        <a href="game.html">Game</a>
+        <a href="leaderboard.html">Leaderboard</a>
+    </div>
+    <div class="top-buttons">
+        <a target="_blank" href="https://pump.fun/coin/y1k9ZRqLwKLbyUe5LfQf53jYXeSyvrFi7URt4FWpump">BUY $pdf</a>
+    </div>
+    <div class="top-buttons ca">
+    <span>CA: y1k9ZRqLwKLbyUe5LfQf53jYXeSyvrFi7URt4FWpump</span>
+    </div>
+    <div class="leaderboard">
+        <h1>Leaderboard</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nickname</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboardTable"></tbody>
+        </table>
+    </div>
+    <a href="game.html" class="game-page-btn">Game Page</a>
+    <div class="bottom-icons">
+        <a target="_blank" href="https://www.instagram.com/daily.pissin.fartin.dog/reels/"><img src="inst.png" alt="Instagram"></a>
+        <a target="_blank" href="https://t.me/pissingdogfarts"><img src="telegram.png" alt="Telegram"></a>
+        <a target="_blank" href="https://x.com/pissingdogfarts"><img src="twitter.png" alt="Twitter"></a>
+        <a target="_blank" href="https://linktr.ee/pissingdogfarts"><img src="linktree.png" alt="Linktree"></a>
+        <a target="_blank" href="https://dexscreener.com/solana/gl7qhf5zu5tg88cach7r2nmfpnjxmung4wqgckltdi3m"><img src="dex.png" alt="DEX"></a>
+    </div>
+    <script>
+    fetch('get_scores.php')
+        .then(response => response.json())
+        .then(data => {
+            const leaderboardTable = document.getElementById('leaderboardTable');
+            data.forEach(entry => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <a href="https://x.com/${encodeURIComponent(entry.nickname)}" target="_blank" style="text-decoration: underline;"">
+                            ${entry.nickname}
+                        </a>
+                    </td>
+                    <td>${entry.score}</td>
+                `;
+                leaderboardTable.appendChild(row);
+            });
+        });
+</script>
+</body>
+</html>
+

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <title>Pissing Dog Farts</title>
+    <style>
+        @font-face {
+            font-family: 'Bitroad';
+            src: url('Bitroad-Regular.ttf') format('truetype');
+        }
+        body {
+            margin: 0;
+            background: url('bg.jpeg?v=1') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Bitroad', sans-serif;
+        }
+        #editor {
+            width: 80%;
+            max-width: 800px;
+            margin: 90px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .canvas-container {
+            width: 100%;
+            height: 450px;
+            position: relative;
+        }
+        canvas {
+            border: 1px solid #8B4513;
+            border-radius: 5px;
+            display: block;
+            margin: 0 auto;
+            height: 450px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .controls input, .controls button {
+            font-family: 'Bitroad';
+            font-size: 18px;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .controls input:hover, .controls button:hover {
+            background-color: #6B3310;
+        }
+        .top-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .top-buttons span {
+            font-family: 'Bitroad';
+            font-size: 20px;
+            color: white;
+            text-shadow: 0px 0px 5px #8B4513;
+            margin-right: 10px;
+        }
+        .top-buttons a {
+            font-family: 'Bitroad';
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            background-color: #8B4513;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .top-buttons a:hover {
+            background-color: #6B3310;
+        }
+        .header-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .header-buttons a {
+            font-family: 'Bitroad';
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            background-color: #8B4513;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .header-buttons a:hover {
+            background-color: #6B3310;
+        }
+        .bottom-icons {
+            position: relative;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            justify-content: center; /* Центрирует элементы по горизонтали */
+            align-items: center; /* Центрирует элементы по вертикали (если нужно) */
+        }
+        .bottom-icons a img {
+            width: 30px;
+            height: 30px;
+            transition: transform 0.3s ease;
+            object-fit: contain;
+        }
+        .bottom-icons a img:hover {
+            transform: scale(1.2);
+        }
+        .ca {
+            margin-right: 150px;
+            margin-top: 10px;
+        }
+        
+        /* Стили для модального окна */
+#airdropModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+#airdropModal input {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+#airdropModal button {
+    padding: 10px;
+    background-color: #8B4513;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#airdropModal button:hover {
+    background-color: #6B3310;
+}
+
+        @media (max-width: 768px) {
+            canvas {
+                width: 100%;
+                object-fit: contain;
+                height: auto;
+            }
+            .canvas-container {
+                height: auto;
+            }
+            .ca {
+                margin-right: -10px;
+                margin-top: 50px;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%); /* Центрирование по горизонтали */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+            }
+            .ca span {
+                font-size: 12px !important;
+            }
+            .top-buttons {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%); /* Центрирование по горизонтали */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                top: 70px;
+            }
+            .controls {
+                justify-content: left;
+            }
+            .controls input, .controls button {
+                width: 250px;
+            }
+            #editor {
+                margin-top: 150px;
+            }
+            .header-buttons {
+                left: 0px;
+                width: 100%;
+                justify-content: center;
+            }
+            .bottom-icons {
+                position: relative;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-buttons">
+        <a href="index.html">Generator</a>
+        <a href="game.html">Game</a>
+        <a href="leaderboard.html">Leaderboard</a>
+    </div>
+    <div class="top-buttons">
+        <a target="_blank" href="https://pump.fun/coin/y1k9ZRqLwKLbyUe5LfQf53jYXeSyvrFi7URt4FWpump">BUY $pdf</a>
+    </div>
+    <div class="top-buttons ca">
+    <span>CA: y1k9ZRqLwKLbyUe5LfQf53jYXeSyvrFi7URt4FWpump</span>
+    </div>
+
+    <div id="editor">
+        <div class="canvas-container">
+            <canvas id="photoCanvas" width="800" height="600"></canvas>
+        </div>
+        <div class="controls">
+            <label>Upload Background: <input type="file" id="uploadBackground" accept="image/*"></label>
+            <label>Add Image: <input type="file" id="addImage" accept="image/*"></label>
+            <button id="download">Download</button>
+            <button id="tweet">Tweet</button>
+            <button id="airdropBtn">Airdrop $pdf</button>
+        </div>
+    </div>
+
+    <div class="bottom-icons">
+        <a target="_blank" href="https://www.instagram.com/daily.pissin.fartin.dog/reels/"><img src="inst.png" alt="Instagram"></a>
+        <a target="_blank" href="https://t.me/pissingdogfarts"><img src="telegram.png" alt="Telegram"></a>
+        <a target="_blank" href="https://x.com/pissingdogfarts"><img src="twitter.png" alt="Twitter"></a>
+        <a target="_blank" href="https://linktr.ee/pissingdogfarts"><img src="linktree.png" alt="Linktree"></a>
+        <a target="_blank" href="https://dexscreener.com/solana/gl7qhf5zu5tg88cach7r2nmfpnjxmung4wqgckltdi3m"><img src="dex.png" alt="DEX"></a>
+    </div>
+    
+    <!-- Модальное окно для ввода Twitter и Wallet Address -->
+<div id="airdropModal" style="display: none;">
+    <div class="modal-content">
+        <h2>Airdrop $pdf</h2>
+        <form id="airdropForm">
+            <span>Create an image, post it to Twitter with @pissingdogfarts and fill out this form to participate in AirDrop.</span></br></br>
+            <label for="twitter">Twitter:</label>
+            <input type="text" id="twitter" name="twitter" required><br>
+            <label for="wallet">Wallet Address:</label>
+            <input type="text" id="wallet" name="wallet" required><br>
+            <button type="submit">Submit</button>
+        </form>
+        <button id="closeModal">Close</button>
+    </div>
+</div>
+
+
+    <script>
+        const canvas = document.getElementById('photoCanvas');
+        const ctx = canvas.getContext('2d');
+        const uploadBackground = document.getElementById('uploadBackground');
+        const addImageInput = document.getElementById('addImage');
+        const downloadBtn = document.getElementById('download');
+        const tweetBtn = document.getElementById('tweet');
+
+        let background = new Image();
+        let overlay = new Image();
+        overlay.src = 'dogs.png?v=1';
+
+        let additionalImages = [];
+        let isBackgroundChanged = false;
+
+        function renderCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (background.src) {
+                ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+            }
+            if (isBackgroundChanged) {
+                ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
+            }
+            additionalImages.forEach(img => {
+                ctx.drawImage(img.image, img.x, img.y, img.width, img.height);
+            });
+        }
+
+        uploadBackground.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    background.src = event.target.result;
+                    background.onload = () => {
+                        isBackgroundChanged = true;
+                        additionalImages = []; // Clear previous additional images
+                        renderCanvas();
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        addImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        additionalImages.push({
+                            image: img,
+                            x: 100,
+                            y: 100,
+                            width: 200,
+                            height: 200
+                        });
+                        renderCanvas();
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        background.src = 'dogs.jpeg?v=1';
+        background.onload = () => {
+            renderCanvas();
+        };
+
+        canvas.addEventListener('mousedown', (e) => {
+            const mouseX = e.offsetX;
+            const mouseY = e.offsetY;
+            for (let i = additionalImages.length - 1; i >= 0; i--) {
+                const img = additionalImages[i];
+                if (
+                    mouseX >= img.x &&
+                    mouseX <= img.x + img.width &&
+                    mouseY >= img.y &&
+                    mouseY <= img.y + img.height
+                ) {
+                    canvas.selectedImage = img;
+                    canvas.offsetX = mouseX - img.x;
+                    canvas.offsetY = mouseY - img.y;
+                    canvas.dragging = true;
+                    return;
+                }
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (canvas.dragging && canvas.selectedImage) {
+                const img = canvas.selectedImage;
+                img.x = e.offsetX - canvas.offsetX;
+                img.y = e.offsetY - canvas.offsetY;
+                renderCanvas();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            canvas.dragging = false;
+            canvas.selectedImage = null;
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'PissingDogFarts.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+
+        tweetBtn.addEventListener('click', () => {
+            const tweetText = "I’ve just farted while pissing with @pissingdogfarts new Fartcoin fork";
+            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+            window.open(tweetUrl, '_blank');
+        });
+        
+        // Обработка кнопки Airdrop
+document.getElementById('airdropBtn').addEventListener('click', () => {
+    document.getElementById('airdropModal').style.display = 'flex'; // Показываем модальное окно
+});
+
+// Обработка закрытия модального окна
+document.getElementById('closeModal').addEventListener('click', () => {
+    document.getElementById('airdropModal').style.display = 'none'; // Закрываем модальное окно
+});
+
+// Обработка отправки формы
+document.getElementById('airdropForm').addEventListener('submit', (e) => {
+    e.preventDefault(); // Отменяем стандартное поведение формы
+
+    const twitter = document.getElementById('twitter').value;
+    const wallet = document.getElementById('wallet').value;
+
+    // Отправляем данные на сервер для записи в базу данных
+    fetch('save_wallet.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ twitter, wallet })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Airdrop information saved successfully!');
+        } else {
+            alert('Error saving information.');
+        }
+        document.getElementById('airdropModal').style.display = 'none'; // Закрываем модальное окно после отправки
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error submitting the form.');
+    });
+});
+
+    </script>
+</body>
+</html>
